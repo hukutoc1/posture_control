@@ -22,6 +22,7 @@ class Camera(Sensor):
 
     def get_data(self):
         ret, frame = self.cap.read()
+        h, w, _ = frame.shape
 
         if not ret:
             return None
@@ -31,7 +32,7 @@ class Camera(Sensor):
 
         if results.pose_landmarks:
             points = Points(results.pose_landmarks.landmark)
-            posture_status = analyze_posture(points)
+            posture_status = analyze_posture(points, w, h)
             return frame, points, posture_status
         else:
             return frame, None, None

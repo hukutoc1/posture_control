@@ -4,6 +4,3 @@ class Points:
 
     def __getitem__(self, index):
         return self.landmarks[index]
-
-    def __str__(self):
-        return "; ".join(self.landmarks)
