@@ -154,13 +154,13 @@ class CameraApp:
                 self.root.after(1000, self.capture_reference)
 
     def start_analysis(self):
-        """@brief Begins continuous posture analysis"""
+        """Begins continuous posture analysis"""
         if self.is_running and self.calibration_complete:
             self.status_label.config(text="Analyzing posture...")
             self.update_frame()
 
     def stop_camera(self):
-        """@brief Stops camera capture and resets application state"""
+        """Stops camera capture and resets application state"""
         if self.is_running:
             self.camera.stop()
             self.is_running = False
@@ -184,13 +184,15 @@ class CameraApp:
             self.no_person_start_time = None
 
     def clear_notification(self):
-        """@brief Clears any active notification messages"""
+        """Clears any active notification messages"""
         if self.notification_label.winfo_exists():
             self.notification_label.config(text="")
 
     def show_notification(self, message):
-        """@brief Displays a notification message with auto-clear
-           @param message Text message to display
+        """Displays a notification message with auto-clear
+
+        Args:
+            message (text): Text message to display
         """
         if not self.notification_label.winfo_exists():
             return
@@ -201,9 +203,11 @@ class CameraApp:
         self.root.after(3000, self.clear_notification)
 
     def check_posture_problems(self, result, no_person_detected):
-        """@brief Monitors for posture issues and triggers notifications
-           @param result Dictionary containing posture analysis results
-           @param no_person_detected Boolean indicating if person is detected
+       """Monitors for posture issues and triggers notifications
+
+        Args:
+           result (dict): Dictionary containing posture analysis results
+           no_person_detected (bool): Boolean indicating if person is detected
         """
         current_time = time.time()
 
@@ -237,7 +241,7 @@ class CameraApp:
                         self.clear_notification()
 
     def update_frame(self):
-        """@brief Main video processing loop."""
+        """Main video processing loop."""
         if self.is_running and self.calibration_complete:
             data = self.camera.get_data()
 
