@@ -2,13 +2,16 @@ from math import hypot
 
 
 def nose_shoulder_ratio(points):
-    """@brief Calculate the ratio of nose-to-shoulder distance to shoulder
-              width.
+    """Calculate the ratio of nose-to-shoulder distance to shoulder width.
 
-        @param points List of landmark points (expected to contain shoulder and
-               nose points).
-        @return Ratio of vertical nose-to-shoulder distance to shoulder width,
-                or None if calculation fails.
+    Args:
+        points (list): List of landmark points (expected to contain shoulder
+                       and nose points).
+
+    Returns:
+        float or None: Ratio of vertical nose-to-shoulder distance to shoulder
+                       width,or None if calculation fails due to missing
+                       landmarks or invalid input.
     """
     try:
         # Left shoulder landmark point

@@ -3,19 +3,19 @@ from Core.nose_shoulder_ratio_func import nose_shoulder_ratio
 
 
 def analyze_posture(points, w, h, nose_to_shoulder_ratio=0.33):
-    """@brief Analyze posture based on shoulder landmarks and nose-to-shoulder
-              ratio.
+    """Analyze posture based on shoulder landmarks and nose-to-shoulder ratio.
 
-        @param points List of landmark points (expected to contain shoulder
-               points).
-        @param w Width of the frame (used for normalization).
-        @param h Height of the frame (used for normalization).
-        @param nose_to_shoulder_ratio Expected ratio for started posture
-               (default: 0.33).
-        @return Dictionary with posture analysis result:
-        - "status": "good" (correct posture), "bad" (detected tilt),
-        or "error".
-        - "message": Detailed status description or error message.
+    Args:
+        points (list): List of landmark points (expected to contain shoulder points).
+        w (int): Width of the frame (used for normalization).
+        h (int): Height of the frame (used for normalization).
+        nose_to_shoulder_ratio (float, optional): Expected ratio for upright posture.
+            Defaults to 0.33 if not provided.
+
+    Returns:
+        dict: Dictionary with posture analysis result. Contains:
+            - "status" (str): "good", "bad", or "error".
+            - "message" (str): Detailed description of the posture status.
     """
     if points is None:
         return {"status": "bad", "message": "Landmarks are missing"}

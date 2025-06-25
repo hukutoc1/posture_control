@@ -8,40 +8,50 @@ mp_pose = mp.solutions.pose
 
 
 class Camera(Sensor):
-    """@brief Camera sensor class for posture analysis using MediaPipe.
+    """Camera sensor class for posture analysis using MediaPipe.
 
-       This class handles video capture, pose estimation, and posture analysis.
-       Inherits from the base Sensor class.
+    This class handles video capture, pose estimation, and posture analysis.
+    Implements the base Sensor interface for compatibility with the posture
+    monitoring system.
+
+    Attributes:
+    cap (cv2.VideoCapture): OpenCV VideoCapture object for accessing the
+    camera.
+    pose (mp.solutions.Pose): MediaPipe Pose solution instance.
     """
     def __init__(self, camera_index=0):
-        """@brief Initialize the Camera sensor.
+        """Initialize the Camera sensor.
 
-           @param camera_index Index of the camera to use (default: 0).
+        Args:
+            camera_index (int): Index of the camera to use (default: 0).
         """
         self.cap = cv2.VideoCapture(camera_index)
         self.pose = mp_pose.Pose(static_image_mode=False,
                                  model_complexity=1)
 
     def start(self):
-        """@brief Start the camera capture.
+        """Start the camera capture.
 
-           Opens the camera if it's not already open.
+        Opens the camera if it's not already open.
         """
         if not self.cap.isOpened():
             self.cap.open(0)
 
     def stop(self):
-        """@brief Stop the camera capture and release resources."""
+        """Stop the camera capture and release resources."""
         self.cap.release()
 
     def get_data(self):
-        """@brief Capture and process a frame for posture analysis.
+        """Capture and process a frame for posture analysis.
 
-           @return Tuple containing:
-                   - frame: Captured video frame
-                   - points: Detected landmark points (None if not detected)
-                   - posture_status: Analysis result (None if no landmarks)
-           Returns None if frame capture fails.
+        Returns:
+            Tuple containing:
+                - frame (np.ndarray | None): Captured video frame (BGR format),
+                 or None if capture fails.
+                - points (Points | None): Detected landmark points, or None if
+                not detected.
+                - posture_status (str | None): Analysis result, or None if no
+                landmarks are present.
         """
         ret, frame = self.cap.read()
         h, w, _ = frame.shape
